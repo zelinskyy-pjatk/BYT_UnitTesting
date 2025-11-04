@@ -7,7 +7,10 @@ namespace BYT_UT
         private IShape cylinder = new Cylinder(4, 5);
         
         private IShape cube = new Cube(5);
-        
+
+        private Rectangle rectangle = new Rectangle(4, 5);
+
+
         // -- Sphere Tests -- //
         [Test]
         public void TestSphereCalculateArea()
@@ -99,6 +102,42 @@ namespace BYT_UT
         {
             cube = new Cube(0);
             Assert.That(cube.CalculateVolume(), Is.Zero);
+        }
+
+        // -- Rectangle Tests -- //
+        [Test]
+        public void TestRectangleCalculateArea()
+        {
+            double expectedValue = 4 * 5;
+            Assert.That(rectangle.CalculateArea(), Is.EqualTo(expectedValue).Within(0.001));
+        }
+        
+        [Test]
+        public void TestRectangleCalculateVolume_ZeroVolume()
+        {
+            Assert.That(rectangle.CalculateVolume(), Is.Zero);
+        }
+
+        [Test]
+        public void TestRectangleZeroLength_ZeroArea()
+        {
+            rectangle = new Rectangle(0, 5);
+            Assert.That(rectangle.CalculateArea(), Is.Zero);
+        }
+        
+        
+        [Test]
+        public void TestRectangleZeroWidth_ZeroArea()
+        {
+            rectangle = new Rectangle(4, 0);
+            Assert.That(rectangle.CalculateArea(), Is.Zero);
+        }
+        
+        [Test]
+        public void TestRectangleZeroSides_ZeroVolume()
+        {
+            rectangle = new Rectangle(0, 0);
+            Assert.That(rectangle.CalculateVolume(), Is.Zero);
         }
     }
 }
