@@ -4,6 +4,8 @@ namespace BYT_UT
     {
         private IShape sphere = new Sphere(5);
 
+        private IShape cylinder = new Cylinder(4, 5);
+        
         // -- Sphere Tests -- //
         [Test]
         public void TestSphereCalculateArea()
@@ -22,6 +24,50 @@ namespace BYT_UT
         {
             sphere = new Sphere(-5);
             Assert.That(sphere.CalculateArea(), Is.Positive);
+        }
+
+        // -- Cylinder Tests -- //
+        [Test]
+        public void TestCylinderCalculateArea_NormalValues()
+        {
+            double expectedValue = 2 * Math.PI * 4 * (4 + 5);
+            Assert.That(cylinder.CalculateArea(), Is.EqualTo(expectedValue).Within(0.001));
+        }
+
+        [Test]
+        public void TestCylinderCalculateVolume_NormalValues()
+        {
+            double expectedValue = Math.PI * Math.Pow(4, 2) * 5;
+            Assert.That(cylinder.CalculateVolume(), Is.EqualTo(expectedValue).Within(0.001));
+        }
+
+        [Test]
+        public void TestCylinderZeroRadius_ZeroArea()
+        {
+            cylinder = new Cylinder(0, 5);
+            Assert.That(cylinder.CalculateArea(), Is.Zero);
+        }
+
+        [Test]
+        public void TestCylinderZeroHeight_CorrectArea()
+        {
+            cylinder = new Cylinder(4, 0);
+            double expectedValue = 2 * Math.PI * 4 * (4 + 0);
+            Assert.That(cylinder.CalculateArea(), Is.EqualTo(expectedValue).Within(0.001));
+        }
+        
+        [Test]
+        public void TestCylinderZeroRadius_ZeroVolume()
+        {
+            cylinder = new Cylinder(0, 5);
+            Assert.That(cylinder.CalculateVolume(), Is.Zero);
+        }
+
+        [Test]
+        public void TestCylinderZeroHeight_ZeroVolume()
+        {
+            cylinder = new Cylinder(4, 0);
+            Assert.That(cylinder.CalculateVolume(), Is.Zero);
         }
     }
 }
